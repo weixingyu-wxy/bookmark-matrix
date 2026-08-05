@@ -98,3 +98,42 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
   return false;
 });
+
+// ===== Quick Switcher (v1.4.0) =====
+// Ctrl+Shift+B → 打开 Quick Switcher 搜索任意书签
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command === 'open-quick-switcher') {
+    try {
+      // 优先复用已打开的 Quick Switcher 窗口
+      const existing = await chrome.windows.getAll({ windowTypes: ['normal'] });
+      for (const w of existing) {
+        if (w.tabs) {
+          for (const t of w.tabs) {
+            if (t.url && t.url.includes('quickswitcher.html')) {
+              await chrome.windows.update(w.id, { focused: true });
+              await chrome.tabs.update(t.id, { active: true });
+              return;
+            }
+          }
+        }
+      }
+      // 否则新开一个 popup-sized 窗口
+      const w = await chrome.windows.getCurrent();
+      const width = 720;
+      const height = 480;
+      const left = Math.round((w.width - width) / 2) + (w.left || 0);
+      const top = Math.round((w.height - height) / 3) + (w.top || 0);
+      await chrome.windows.create({
+        url: chrome.runtime.getURL('quickswitcher.html'),
+        type: 'popup',
+        width,
+        height,
+        left,
+        top,
+        focused: true
+      });
+    } catch (e) {
+      console.error('[Bookmark Matrix] open quick switcher failed', e);
+    }
+  }
+});

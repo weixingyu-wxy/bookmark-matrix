@@ -119,7 +119,7 @@ All user data (overrides / bookmark_meta / category_order) lives in chrome.stora
 3. Right-click any bookmark → add tag / note / star
 
 🔧 Feedback
-GitHub: https://github.com/weixingyu-wxy/xiuxian-world
+GitHub: https://github.com/weixingyu-wxy/bookmark-matrix
 Issues: bug reports / feature requests welcome
 
 Author: Xingyu Wei
@@ -136,14 +136,14 @@ Productivity
 5. Privacy Policy URL
 ========================
 
-https://weixingyu-wxy.github.io/xiuxian-world/privacy.html
+https://weixingyu-wxy.github.io/bookmark-matrix/privacy.html
 
 
 ========================
 6. Support
 ========================
 
-GitHub Issues: https://github.com/weixingyu-wxy/xiuxian-world/issues
+GitHub Issues: https://github.com/weixingyu-wxy/bookmark-matrix/issues
 Email: weixingyu.cq@gmail.com
 
 

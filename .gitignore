@@ -1,0 +1,13 @@
+﻿node_modules/
+.DS_Store
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+*.log
+README.md.bak
+# Deprecated promo images (kept on disk for history, not in git)
+store/promo/*.OLD
+# OS / IDE noise
+Thumbs.db
+*.swp

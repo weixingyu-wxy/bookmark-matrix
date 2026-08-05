@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Bookmark Matrix — Quick Switcher</title>
+  <link rel="stylesheet" href="quickswitcher.css">
+</head>
+<body>
+  <div class="qs-container">
+    <div class="qs-search-box">
+      <span class="qs-icon">⌘</span>
+      <input
+        type="text"
+        id="qs-input"
+        placeholder="Type to search bookmarks..."
+        autocomplete="off"
+        spellcheck="false"
+        autofocus
+      >
+      <span class="qs-hint" id="qs-hint">↑↓ to navigate · Enter to open · Esc to close</span>
+    </div>
+    <div class="qs-results" id="qs-results">
+      <div class="qs-empty" id="qs-empty">Start typing to search your bookmarks...</div>
+    </div>
+    <div class="qs-footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>Enter</kbd> open</span>
+      <span><kbd>Ctrl</kbd>+<kbd>Click</kbd> open in background</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+  <script src="quickswitcher.js"></script>
+</body>
+</html>
