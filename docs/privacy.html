@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Bookmark Matrix</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 760px; margin: 2rem auto; padding: 0 1rem; line-height: 1.65;
+         color: #1a1a1a; background: #fff; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e0e0e0; background: #1a1a1a; }
+    a { color: #6cb6ff; }
+    code, pre { background: #2a2a2a; }
+    table { border-color: #444; }
+    th, td { border-color: #444; }
+  }
+  h1 { border-bottom: 2px solid #ddd; padding-bottom: 0.3rem; }
+  h2 { margin-top: 2.2rem; color: #2c5aa0; }
+  @media (prefers-color-scheme: dark) { h2 { color: #6cb6ff; } }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #ccc; padding: 0.5rem 0.7rem; text-align: left; }
+  th { background: #f5f5f5; }
+  @media (prefers-color-scheme: dark) { th { background: #2a2a2a; } }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2rem 0; }
+  code { background: #f4f4f4; padding: 0.1em 0.3em; border-radius: 3px; }
+  blockquote { border-left: 4px solid #6cb6ff; padding-left: 1rem; color: #555;
+               margin: 1rem 0; background: #f8f9fa; padding: 0.8rem 1rem; }
+  @media (prefers-color-scheme: dark) {
+    blockquote { color: #aaa; background: #252525; }
+  }
+  ul { padding-left: 1.5rem; }
+  a { color: #2c5aa0; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: #666; font-size: 0.95rem; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy — Bookmark Matrix</h1>
+
+<p class="meta">
+  <strong>Last updated</strong>: 2026-08-05<br>
+  <strong>Effective date</strong>: 2026-08-05<br>
+  <strong>Author</strong>: Xingyu Wei<br>
+  <strong>Contact</strong>: weixingyu.cq@gmail.com
+</p>
+
+<hr>
+
+<h2>1. Overview</h2>
+
+<p>Bookmark Matrix ("the Extension") is a Microsoft Edge browser extension that helps you organize and manage your bookmarks. This privacy policy explains what data the Extension accesses, how it is used, and what we do — and do not do — with it.</p>
+
+<p><strong>Short version</strong>: We don't collect anything. All your data stays on your device. The only network requests happen when YOU explicitly click the "Health Check" button.</p>
+
+<hr>
+
+<h2>2. Data We Access</h2>
+
+<p>The Extension requests the following permissions from your browser:</p>
+
+<table>
+<tr><th>Permission</th><th>Why we need it</th></tr>
+<tr><td><code>bookmarks</code></td><td>To read your local bookmarks so we can categorize and display them. We only read; we do not modify your bookmarks unless you explicitly delete one through the UI.</td></tr>
+<tr><td><code>storage</code></td><td>To save your preferences (theme, category order, manual category overrides, tags, notes, starred bookmarks, health-check results) in <code>chrome.storage.local</code> on your device.</td></tr>
+<tr><td><code>alarms</code></td><td>To schedule periodic "review" reminders (only if you enable this feature).</td></tr>
+<tr><td><code>notifications</code></td><td>To show you a desktop notification when a review reminder fires (only if you enable this feature).</td></tr>
+<tr><td><code>favicon</code></td><td>To display website icons next to your bookmarks.</td></tr>
+<tr><td><code>host_permissions</code> (http://*/*, https://*/*)</td><td>To make outbound HTTP requests when YOU click the "Health Check" button. The Extension validates whether a bookmark URL is reachable and whether its RSS feed is still valid.</td></tr>
+</table>
+
+<hr>
+
+<h2>3. Data We Do NOT Collect</h2>
+
+<p>We want to be unambiguous:</p>
+
+<ul>
+  <li>❌ We do <strong>not</strong> collect your bookmarks, tags, notes, or any of your personal data on any server.</li>
+  <li>❌ We do <strong>not</strong> send analytics, telemetry, or crash reports.</li>
+  <li>❌ We do <strong>not</strong> use cookies, tracking pixels, or fingerprinting.</li>
+  <li>❌ We do <strong>not</strong> include any third-party SDKs (no Google Analytics, no Facebook Pixel, no Mixpanel, no Sentry, nothing).</li>
+  <li>❌ We do <strong>not</strong> sell or share any data with anyone, because we have no data to sell.</li>
+  <li>❌ We do <strong>not</strong> call any Large Language Model (LLM) API. No ChatGPT, no Claude, no Gemini, nothing.</li>
+</ul>
+
+<p>The Extension has <strong>zero dependencies</strong> — no jQuery, no React, no Vue, no analytics libraries. The code is fully reviewable on <a href="https://github.com/weixingyu-wxy/bookmark-matrix">GitHub</a>.</p>
+
+<hr>
+
+<h2>4. What Happens When You Use the Extension</h2>
+
+<h3>4.1 Default Behavior (Offline)</h3>
+<p>By default, the Extension makes <strong>zero network requests</strong>. All processing — categorization, search, sorting, statistics — happens locally on your device.</p>
+
+<h3>4.2 Health Check (User-Triggered)</h3>
+<p>If you click the "Health Check" button (🩺) in the Extension, the Extension will:</p>
+
+<ul>
+  <li>Send an HTTP HEAD (fallback GET) request to each bookmark URL to verify it returns a 2xx/3xx status code.</li>
+  <li>If the URL appears to be a feed, fetch the page and look for <code>&lt;link rel="alternate" type="application/rss+xml"&gt;</code> or similar to discover the feed URL, then fetch that feed and validate it as XML.</li>
+</ul>
+
+<p>These requests are sent <strong>directly from your browser to the destination website</strong>. The requests are <strong>not</strong> routed through any server we operate. We do not log, record, store, or transmit the responses anywhere except back to your local <code>chrome.storage.local</code>.</p>
+
+<p>If you do not click the Health Check button, no network requests are made.</p>
+
+<h3>4.3 Other Features</h3>
+<p>All other features (categorization, tags, notes, starred, drag-and-drop, themes, search, statistics, kanban, periodic review, Quick Switcher) operate entirely offline. No data leaves your device.</p>
+
+<hr>
+
+<h2>5. Where Your Data Is Stored</h2>
+
+<p>All Extension data is stored in <code>chrome.storage.local</code> on your device. This storage is:</p>
+
+<ul>
+  <li>Local to your browser profile</li>
+  <li>Not synced to Google's servers (this is <code>local</code>, not <code>sync</code>)</li>
+  <li>Not accessible to other extensions unless they have the same storage key</li>
+  <li>Cleared when you uninstall the Extension</li>
+</ul>
+
+<p>We have <strong>no server-side storage</strong>. There is no backend database. We literally cannot access your data, because we never receive it.</p>
+
+<hr>
+
+<h2>6. Children</h2>
+<p>The Extension does not target children under 13. We do not knowingly collect any data from children. The Extension does not collect data from anyone, period.</p>
+
+<hr>
+
+<h2>7. Changes to This Policy</h2>
+<p>If we change this policy, we will:</p>
+<ol>
+  <li>Update the "Last updated" date at the top</li>
+  <li>Bump the Extension version number</li>
+  <li>Briefly describe the change in the Extension's release notes on the Edge Add-ons store</li>
+</ol>
+
+<hr>
+
+<h2>8. Your Rights</h2>
+<p>You can:</p>
+<ul>
+  <li><strong>Export all your data</strong> to a JSON file at any time via the Extension's ↕ menu</li>
+  <li><strong>Delete all your data</strong> by uninstalling the Extension</li>
+  <li><strong>Inspect the source code</strong> on GitHub: <a href="https://github.com/weixingyu-wxy/bookmark-matrix">github.com/weixingyu-wxy/bookmark-matrix</a></li>
+  <li><strong>Contact the author</strong> at: weixingyu.cq@gmail.com</li>
+</ul>
+
+<p>Since we don't collect any data, we have nothing to provide, export, or delete on our side. All actions apply to your local data only.</p>
+
+<hr>
+
+<h2>9. Data Breach Policy</h2>
+<p>We do not maintain a server. We have no database. We collect nothing. A "data breach" in the traditional sense is not possible because there is no centralized data to breach.</p>
+
+<p>The only theoretical risk is the open-source code itself being tampered with. To mitigate this, the GitHub repository is public and the build process is transparent — anyone can verify the code that ships in the Extension matches the code on GitHub.</p>
+
+<hr>
+
+<h2>10. Compliance</h2>
+<p>This Extension and its privacy practices are designed to comply with:</p>
+<ul>
+  <li><strong>GDPR</strong> (EU General Data Protection Regulation) — we collect no personal data, so most GDPR obligations do not apply</li>
+  <li><strong>CCPA</strong> (California Consumer Privacy Act) — no sale of personal information (because none is collected)</li>
+  <li><strong>PIPL</strong> (中国个人信息保护法) — 不收集任何个人信息</li>
+  <li><strong>CSL</strong> (网络安全法) — 无数据上报</li>
+  <li><strong>DSL</strong> (数据安全法) — 无数据传输</li>
+</ul>
+
+<hr>
+
+<h2>11. Contact</h2>
+<p>If you have any questions about this privacy policy or the Extension:</p>
+<ul>
+  <li><strong>Email</strong>: weixingyu.cq@gmail.com</li>
+  <li><strong>GitHub</strong>: <a href="https://github.com/weixingyu-wxy/bookmark-matrix/issues">github.com/weixingyu-wxy/bookmark-matrix/issues</a></li>
+  <li><strong>Extension author</strong>: Xingyu Wei</li>
+</ul>
+
+<hr>
+
+<h2>12. TL;DR</h2>
+<blockquote>The Extension is 100% offline by default. It reads your bookmarks (to categorize them) and stores preferences locally. The only network requests happen when you click "Health Check" — those go directly from your browser to the website, never through any server we operate. We don't collect, store, or share any of your data because we have no servers. Source code is on GitHub for review.</blockquote>
+
+<hr>
+
+<p class="meta">
+  <strong>Author</strong>: Xingyu Wei<br>
+  <strong>AI Use Statement</strong>: This privacy policy was drafted with the assistance of Mavis (MiniMax Code) and reviewed by the author.
+</p>
+
+</body>
+</html>
