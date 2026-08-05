@@ -2,9 +2,10 @@
   "manifest_version": 3,
   "name": "Bookmark Matrix — 书签矩阵",
   "version": "1.3.0",
+  "default_locale": "en",
   "description": "把 Edge 收藏夹自动整理成扁平现代化的分类矩阵,离线运行。支持标签/备注/收藏/统计/健康检查/看板。",
   "author": "Xingyu Wei",
-  "homepage_url": "https://github.com/weixingyu-wxy/xiuxian-world",
+  "homepage_url": "https://github.com/weixingyu-wxy/bookmark-matrix",
   "action": {
     "default_title": "Bookmark Matrix",
     "default_popup": "popup.html",
