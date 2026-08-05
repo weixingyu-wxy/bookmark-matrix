@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Matrix — 书签矩阵",
+  "version": "1.3.0",
+  "description": "把 Edge 收藏夹自动整理成扁平现代化的分类矩阵,离线运行。支持标签/备注/收藏/统计/健康检查/看板。",
+  "author": "Xingyu Wei",
+  "homepage_url": "https://github.com/weixingyu-wxy/xiuxian-world",
+  "action": {
+    "default_title": "Bookmark Matrix",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "persistent": false
+  },
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "alarms",
+    "notifications",
+    "favicon"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "newtab.html", "newtab.js", "newtab.css",
+        "classifier.js", "meta.js", "io.js", "stats.js", "board.js", "health.js", "notify.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "browser_specific_settings": {
+    "edge": {
+      "browser_action_next_to_addressbar": true
+    }
+  },
+  "minimum_chrome_version": "88"
+}

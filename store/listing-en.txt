@@ -1,0 +1,230 @@
+================================================================
+Microsoft Edge Add-ons Store Listing - English (en-US)
+================================================================
+
+========================
+1. Name - 45 chars
+========================
+
+Bookmark Matrix — Smart Bookmark Manager
+
+
+========================
+2. Summary - 132 chars
+========================
+
+Auto-organize your Edge bookmarks into a clean, modern category grid. 18 categories, tags, notes, health check, themes. 100% offline.
+
+
+========================
+3. Description - 8000 chars
+========================
+
+📖 Bookmark Matrix — From Chaos to Clarity
+
+Got hundreds of bookmarks you can never find? Bookmark Matrix auto-organizes your Edge bookmarks into a clean, modern category grid with instant search.
+
+✨ CORE FEATURES
+
+🔒 100% Offline by Default
+Zero network requests. Zero external APIs. Zero LLM calls. Your data stays on your device. Health check only goes online when YOU trigger it.
+
+🎯 18 Auto-Categories
+AI / Dev / Learning / Video / Music / Shopping / Social / News / Games / Cloud / Mail / Finance / Design / Maps / Reading / Tools / Archive / Other. Based on 300+ domain rules + keyword matching — 100% accuracy across 73 test cases.
+
+🖼 Smart Favicons
+Each card shows the website favicon on the left. Falls back to first-letter placeholder. Find bookmarks 3× faster by visual recognition.
+
+🏷 Tags / Notes / Star
+Right-click any bookmark:
+  • Multiple tags (e.g. "work, react, important")
+  • Notes (hover 📝 to view)
+  • ★ Star for quick access
+
+🖥 Full-Screen Matrix Page
+Click ⛶ in toolbar → opens a dedicated full-page view with sidebar navigation. Built for managing 100+ bookmarks.
+
+🖱 Drag-to-Sort Categories
+Rearrange categories in any order you like. Persisted across sessions.
+
+📊 Statistics
+Click 📊 for:
+  • Category bar chart
+  • Donut chart of proportions
+  • Timeline of when you bookmarked
+  • Top 10 domains
+
+🩺 Health Check
+Click 🩺 to detect:
+  • Dead links (HTTP 4xx/5xx/timeout)
+  • Broken RSS feeds (URL heuristic + XML validation + staleness check)
+Failed cards show 💀 / 📡 badges — instantly see what's broken.
+
+⏰ Periodic Review
+Enable (off by default) to get browser notifications every 7 days reminding you of N dormant bookmarks. Never let your collection rot.
+
+📋 Kanban View
+Group by status (Inbox → Reading → To-Do → Done → Archive) or priority (High/Med/Low) with drag-and-drop. A GTD practitioner's dream.
+
+🎨 4 Theme Presets
+  • Midnight (default — warm dark gray + indigo accent)
+  • Minimal (pure black/white/gray)
+  • Cyber (neon on dark, cyan/fuchsia)
+  • Warm (orange/amber cozy)
+Light/dark/auto-system modes. Switch instantly with no reload.
+
+🔍 Instant Search
+Type to filter. Searches title / URL / domain / tags / notes. Keyword highlighting included.
+
+↕ Cross-Device Sync
+Export everything (rules, tags, notes, stars, theme) to JSON. Copy to another device and import. Merge or replace mode.
+
+📱 PWA Desktop Version (Optional)
+Don't want an extension? Deploy the standalone HTML to any HTTPS host (Netlify/GitHub Pages free) — get a desktop app icon.
+
+⌨️ Keyboard-Friendly
+  • Ctrl+F (popup) / Ctrl+K (fullscreen) — focus search
+  • Esc — close / clear
+  • Ctrl+Click / Middle-click — open in background
+
+🛡️ Privacy Promise
+  • Zero network requests (default)
+  • Zero external APIs
+  • Zero LLM calls
+  • Zero telemetry
+  • Zero dependencies (no jQuery/React/Vue)
+  • Minimal permissions: bookmarks + storage + alarms + notifications + favicon
+
+📊 Data Transparency
+All user data (overrides / bookmark_meta / category_order) lives in chrome.storage.local. Uninstalling clears it. Your original Edge bookmarks are never modified.
+
+🧪 Thoroughly Tested
+176 test cases passing 100% (classifier 73 + tag/import 23 + stats 25 + health/board/notify 55 + theme/favicon 35).
+
+📚 Full Documentation
+  • README.md — feature overview
+  • INSTALL.md — quick install
+  • BEGINNER.md — zero-to-running tutorial
+  • STORE_GUIDE.md — store submission guide
+
+💡 Who It's For
+  • "Heavy bookmarkers" with 100+ saved links
+  • Researchers / designers / developers (lots of cross-domain resources)
+  • Knowledge management enthusiasts (GTD / PARA / Zettelkasten)
+  • Customization-loving geeks
+
+🚀 Three Steps to Start
+1. Click ▦ icon in toolbar → see categorized grid
+2. Click ⛶ → full-screen, drag categories to reorder
+3. Right-click any bookmark → add tag / note / star
+
+🔧 Feedback
+GitHub: https://github.com/weixingyu-wxy/xiuxian-world
+Issues: bug reports / feature requests welcome
+
+Author: Xingyu Wei
+
+
+========================
+4. Category
+========================
+
+Productivity
+
+
+========================
+5. Privacy Policy URL
+========================
+
+https://weixingyu-wxy.github.io/xiuxian-world/privacy.html
+
+
+========================
+6. Support
+========================
+
+GitHub Issues: https://github.com/weixingyu-wxy/xiuxian-world/issues
+Email: weixingyu.cq@gmail.com
+
+
+========================
+7. Icon Set
+========================
+
+StoreIcon-44x44.png
+MediumIcon-300x300.png
+SmallPromo-50x50.png
+LargePromo-1400x560.png (optional)
+
+
+========================
+8. Screenshots
+========================
+
+01-classification.png — Main category view
+02-fullscreen.png — Full-screen matrix page
+03-search.png — Search + tag filter
+04-themes.png — Theme switcher
+05-board.png — Kanban view
+06-stats.png — Statistics
+
+(Each 1280x800 PNG)
+
+
+========================
+9. Content Rating
+========================
+
+General
+
+
+========================
+10. Pricing
+========================
+
+Free
+
+
+========================
+11. Version Notes (v1.3.0)
+========================
+
+v1.3.0 — Initial release
+
+🎉 Features
+• 18 auto-categories (100% test accuracy)
+• Tags / notes / starred
+• Full-screen matrix page
+• Drag-to-sort categories
+• Statistics (bar/donut/timeline)
+• Health check (dead links + RSS)
+• Periodic review (browser notifications)
+• Kanban view (status/priority)
+• 4 theme presets
+• Smart favicon display
+• Cross-device JSON sync
+• Full-text search
+• Optional PWA desktop version
+
+🛡️ Privacy
+100% offline by default. Zero telemetry. Zero dependencies.
+
+
+========================
+12. Data Usage Disclosure
+========================
+
+Data Collection: We do not collect personal data.
+
+Permission Explanations:
+• bookmarks — read user's local bookmarks to categorize them
+• storage — store user preferences (tags/notes/categories/theme)
+• alarms — periodic review reminders (user-enabled)
+• notifications — push dormant-bookmark reminders (user-enabled)
+• favicon — display website icons (browser built-in API)
+• host_permissions (http/https) — only used when user explicitly triggers Health Check; no data sent to any server
+
+Third Parties: None
+
+Analytics: None
+================================================================

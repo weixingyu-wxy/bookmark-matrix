@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#06B6D4" />
+  <title>Bookmark Matrix — Standalone</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+  <header class="nt-toolbar">
+    <div class="brand">
+      <span class="logo">▦</span>
+      <span class="title">Bookmark Matrix</span>
+      <span class="subtitle">独立 PWA 模式</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="search" type="text" placeholder="搜索 (Ctrl+K)…" autocomplete="off" spellcheck="false" />
+      <button id="clear-search" class="icon-btn hidden">✕</button>
+    </div>
+    <div class="controls">
+      <select id="view-mode">
+        <option value="category">分类</option>
+        <option value="flat">扁平</option>
+        <option value="uncategorized">未分类</option>
+        <option value="board-status">看板·状态</option>
+        <option value="board-priority">看板·优先级</option>
+      </select>
+      <select id="card-size">
+        <option value="compact">紧凑</option>
+        <option value="normal" selected>标准</option>
+        <option value="large">大</option>
+      </select>
+      <button id="health-btn" class="icon-btn" title="健康检查 (RSS / 死链)">🩺</button>
+      <button id="review-btn" class="icon-btn" title="定期回顾">⏰</button>
+      <button id="add-btn" class="icon-btn" title="添加书签">+</button>
+      <button id="io-btn" class="icon-btn" title="导入/导出">↕</button>
+      <button id="theme-toggle" class="icon-btn" title="切换主题">🌙</button>
+      <button id="themes-btn" class="icon-btn" title="主题预设">🎨</button>
+    </div>
+  </header>
+
+  <div class="nt-body">
+    <aside class="nt-sidebar" id="sidebar"></aside>
+    <main class="nt-main" id="main"></main>
+  </div>
+
+  <div class="nt-statusbar">
+    <span id="status-text">加载中…</span>
+    <span id="filter-info"></span>
+  </div>
+
+  <div id="tag-chips" class="tag-chips hidden"></div>
+
+  <!-- 右键菜单 -->
+  <div id="context-menu" class="context-menu hidden">
+    <div class="ctx-section">
+      <div class="ctx-label">移动到分类</div>
+      <div id="ctx-categories" class="ctx-categories"></div>
+    </div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-action" data-action="open">↗ 打开</div>
+    <div class="ctx-action" data-action="copy">⎘ 复制链接</div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-section">
+      <div class="ctx-label">标签 / 备注 / 收藏 / 状态</div>
+      <div class="ctx-action" data-action="tag">🏷 编辑标签</div>
+      <div class="ctx-action" data-action="note">📝 编辑备注</div>
+      <div class="ctx-action" data-action="star">★ 切换收藏</div>
+      <div class="ctx-action" data-action="status">📊 改状态</div>
+      <div class="ctx-action" data-action="priority">🔥 改优先级</div>
+    </div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-action danger" data-action="delete">🗑 删除</div>
+  </div>
+
+  <!-- 模态: 标签/备注/添加/状态 -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span id="modal-title">编辑</span>
+        <button class="modal-close" data-modal-close>✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>取消</button>
+        <button class="btn btn-primary" id="modal-save">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态: 统计 -->
+  <div id="stats-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header"><span>📊 统计</span><button class="modal-close" data-stats-close>✕</button></div>
+      <div class="modal-body" id="stats-body"><div class="stat-loading">计算中…</div></div>
+    </div>
+  </div>
+
+  <!-- 模态: 健康检查 -->
+  <div id="health-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header"><span>🩺 健康检查</span><button class="modal-close" data-health-close>✕</button></div>
+      <div class="modal-body" id="health-body">
+        <p style="margin-bottom: 8px;font-size:12px;color:var(--text-dim);">检测所有书签的可达性 + RSS feed 状态。可离线检测，失败的不阻塞。</p>
+        <div id="health-progress" class="health-progress"></div>
+        <div id="health-actions" class="health-actions">
+          <button id="health-check-dead" class="btn btn-secondary">🔗 检测死链</button>
+          <button id="health-check-rss" class="btn btn-secondary">📡 检测 RSS</button>
+          <button id="health-check-all" class="btn btn-primary">🩺 全部检测</button>
+        </div>
+        <div id="health-summary" class="health-summary"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态: 定期回顾 -->
+  <div id="review-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header"><span>⏰ 定期回顾</span><button class="modal-close" data-review-close>✕</button></div>
+      <div class="modal-body" id="review-body"></div>
+    </div>
+  </div>
+
+  <!-- 模态: 主题选择 -->
+  <div id="themes-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header"><span>🎨 主题</span><button class="modal-close" data-themes-close>✕</button></div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label>外观</label>
+          <div style="display:flex;gap:6px;">
+            <button id="theme-mode-dark" class="btn btn-secondary" style="flex:1;">🌙 深色</button>
+            <button id="theme-mode-light" class="btn btn-secondary" style="flex:1;">☀️ 亮色</button>
+          </div>
+        </div>
+        <div class="modal-field">
+          <label>主题预设</label>
+          <div id="theme-grid" class="theme-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态: 导入/导出 -->
+  <div id="io-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header"><span>↕ 导入 / 导出</span><button class="modal-close" data-io-close>✕</button></div>
+      <div class="modal-body">
+        <div class="io-block">
+          <div class="io-title">导出</div>
+          <div class="io-desc">打包全部数据为 JSON 文件。</div>
+          <button id="export-btn" class="btn btn-primary">⤓ 导出 JSON</button>
+        </div>
+        <div class="io-divider"></div>
+        <div class="io-block">
+          <div class="io-title">导入 JSON 备份</div>
+          <div class="io-desc">从 v1.x 备份文件恢复。</div>
+          <input id="import-file" type="file" accept=".json" hidden />
+          <div class="io-row">
+            <button id="import-btn" class="btn btn-secondary">⤴ 合并导入</button>
+            <button id="import-replace-btn" class="btn btn-danger">⤴ 覆盖导入</button>
+          </div>
+        </div>
+        <div class="io-divider"></div>
+        <div class="io-block">
+          <div class="io-title">导入 Edge 书签 HTML</div>
+          <div class="io-desc">从 Edge 导出的 Netscape Bookmark File Format 导入。在 <code>edge://bookmarks/</code> → 右上角 ⋯ → 导出书签。</div>
+          <input id="import-html-file" type="file" accept=".html,.htm" hidden />
+          <div class="io-row">
+            <button id="import-html-btn" class="btn btn-secondary">⤴ 选择 HTML</button>
+          </div>
+        </div>
+        <div id="import-result" class="io-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <div id="install-prompt" class="install-prompt hidden">
+    <div>📱 Bookmark Matrix 可作为 PWA 安装到桌面</div>
+    <button id="install-yes" class="btn btn-primary">安装</button>
+    <button id="install-no" class="btn btn-secondary">不了</button>
+  </div>
+
+  <script src="../src/classifier.js"></script>
+  <script src="polyfill.js"></script>
+  <script src="../src/meta.js"></script>
+  <script src="../src/io.js"></script>
+  <script src="../src/stats.js"></script>
+  <script src="../src/board.js"></script>
+  <script src="../src/health.js"></script>
+  <script src="../src/notify.js"></script>
+  <script src="../src/themes.js"></script>
+  <script src="../src/favicon.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

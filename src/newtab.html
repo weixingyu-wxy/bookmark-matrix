@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookmark Matrix — 全屏</title>
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body data-theme="dark">
+  <!-- 顶部工具栏 -->
+  <header class="nt-toolbar">
+    <div class="brand">
+      <span class="logo">▦</span>
+      <span class="title">Bookmark Matrix</span>
+      <span class="subtitle">全屏视图</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="search" type="text" placeholder="搜索书签 (Ctrl+K)…" autocomplete="off" spellcheck="false" />
+      <button id="clear-search" class="icon-btn hidden">✕</button>
+    </div>
+    <div class="controls">
+      <select id="view-mode">
+        <option value="category">分类视图</option>
+        <option value="flat">扁平视图</option>
+        <option value="uncategorized">未分类</option>
+        <option value="board-status">看板·状态</option>
+        <option value="board-priority">看板·优先级</option>
+      </select>
+      <select id="card-size">
+        <option value="compact">紧凑</option>
+        <option value="normal" selected>标准</option>
+        <option value="large">大</option>
+      </select>
+      <button id="theme-toggle" class="icon-btn" title="切换主题">🌙</button>
+      <button id="themes-btn" class="icon-btn" title="主题预设">🎨</button>
+      <button id="stats-btn" class="icon-btn" title="统计">📊</button>
+      <button id="health-btn" class="icon-btn" title="健康检查">🩺</button>
+      <button id="review-btn" class="icon-btn" title="定期回顾">⏰</button>
+      <button id="io-btn" class="icon-btn" title="导入/导出">↕</button>
+      <button id="refresh" class="icon-btn" title="刷新">↻</button>
+    </div>
+  </header>
+
+  <!-- 主体：左侧侧边栏 + 右侧矩阵 -->
+  <div class="nt-body">
+    <aside class="nt-sidebar" id="sidebar"></aside>
+    <main class="nt-main" id="main"></main>
+  </div>
+
+  <!-- 状态条 -->
+  <div class="nt-statusbar">
+    <span id="status-text">加载中…</span>
+    <span id="filter-info"></span>
+  </div>
+
+  <!-- 标签筛选条 -->
+  <div id="tag-chips" class="tag-chips hidden"></div>
+
+  <!-- 右键菜单（共享 popup 样式） -->
+  <div id="context-menu" class="context-menu hidden">
+    <div class="ctx-section">
+      <div class="ctx-label">移动到分类</div>
+      <div id="ctx-categories" class="ctx-categories"></div>
+    </div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-action" data-action="open">↗ 在新标签页打开</div>
+    <div class="ctx-action" data-action="open-bg">↗ 在后台打开</div>
+    <div class="ctx-action" data-action="edit">✎ 编辑书签</div>
+    <div class="ctx-action" data-action="copy">⎘ 复制链接</div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-section">
+      <div class="ctx-label">标签 / 备注 / 收藏</div>
+      <div class="ctx-action" data-action="tag">🏷 编辑标签</div>
+      <div class="ctx-action" data-action="note">📝 编辑备注</div>
+      <div class="ctx-action" data-action="star">★ 切换收藏</div>
+    </div>
+    <div class="ctx-divider"></div>
+    <div class="ctx-action danger" data-action="delete">🗑 删除书签</div>
+  </div>
+
+  <!-- 模态：标签/备注编辑 -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span id="modal-title">编辑</span>
+        <button class="modal-close" data-modal-close>✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>取消</button>
+        <button class="btn btn-primary" id="modal-save">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态：统计 -->
+  <div id="stats-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header">
+        <span>📊 统计</span>
+        <button class="modal-close" data-stats-close>✕</button>
+      </div>
+      <div class="modal-body" id="stats-body">
+        <div class="stat-loading">计算中…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态：健康检查 -->
+  <div id="health-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header"><span>🩺 健康检查</span><button class="modal-close" data-health-close>✕</button></div>
+      <div class="modal-body">
+        <p style="margin-bottom:8px;font-size:12px;color:var(--text-dim);">检测死链 + RSS feed 状态。失败的书签不阻塞。</p>
+        <div id="health-progress"></div>
+        <div id="health-actions" class="health-actions">
+          <button id="health-check-dead" class="btn btn-secondary">🔗 检测死链</button>
+          <button id="health-check-rss" class="btn btn-secondary">📡 检测 RSS</button>
+          <button id="health-check-all" class="btn btn-primary">🩺 全部</button>
+        </div>
+        <div id="health-summary" class="health-summary"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态：定期回顾 -->
+  <div id="review-modal" class="modal hidden">
+    <div class="modal-card modal-wide">
+      <div class="modal-header"><span>⏰ 定期回顾</span><button class="modal-close" data-review-close>✕</button></div>
+      <div class="modal-body" id="review-body"></div>
+    </div>
+  </div>
+
+  <!-- 模态：主题选择 -->
+  <div id="themes-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header"><span>🎨 主题</span><button class="modal-close" data-themes-close>✕</button></div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label>外观</label>
+          <div style="display:flex;gap:6px;">
+            <button id="theme-mode-dark" class="btn btn-secondary" style="flex:1;">🌙 深色</button>
+            <button id="theme-mode-light" class="btn btn-secondary" style="flex:1;">☀️ 亮色</button>
+            <button id="theme-mode-auto" class="btn btn-secondary" style="flex:1;">⚙ 跟随系统</button>
+          </div>
+        </div>
+        <div class="modal-field">
+          <label>主题预设</label>
+          <div id="theme-grid" class="theme-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模态：导入/导出 -->
+  <div id="io-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span>↕ 导入 / 导出</span>
+        <button class="modal-close" data-io-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="io-block">
+          <div class="io-title">导出</div>
+          <div class="io-desc">把分类规则、标签、备注、收藏、主题、视图模式打包为 JSON 文件，可换设备恢复。</div>
+          <button id="export-btn" class="btn btn-primary">⤓ 导出备份</button>
+        </div>
+        <div class="io-divider"></div>
+        <div class="io-block">
+          <div class="io-title">导入</div>
+          <div class="io-desc">从 JSON 备份文件恢复。<b>合并</b>：现有数据优先；<b>覆盖</b>：备份数据完全替换现有。</div>
+          <input id="import-file" type="file" accept=".json" hidden />
+          <div class="io-row">
+            <button id="import-btn" class="btn btn-secondary">⤴ 选择文件并合并导入</button>
+            <button id="import-replace-btn" class="btn btn-danger">⤴ 覆盖导入</button>
+          </div>
+          <div id="import-result" class="io-result"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="classifier.js"></script>
+  <script src="meta.js"></script>
+  <script src="stats.js"></script>
+  <script src="io.js"></script>
+  <script src="health.js"></script>
+  <script src="board.js"></script>
+  <script src="notify.js"></script>
+  <script src="themes.js"></script>
+  <script src="favicon.js"></script>
+  <script src="newtab.js"></script>
+</body>
+</html>
