@@ -4,7 +4,7 @@
     "description": "The display name of the extension."
   },
   "extensionDescription": {
-    "message": "Auto-organize Edge bookmarks into a flat modern category matrix, runs offline. Supports tags/notes/starred/statistics/health check/kanban and a global Quick Switcher (Ctrl+Shift+B).",
+    "message": "Bookmark manager for Edge. Auto-categorize, tag, note, star, health check, kanban, offline. Quick Switcher Ctrl+Shift+B.",
     "description": "The description of the extension."
   }
 }
