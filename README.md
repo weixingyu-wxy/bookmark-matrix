@@ -68,7 +68,13 @@ edge-bookmark-matrix/
 │   └── gen_pwa_icons.py          PWA 图标
 │
 ├── README.md
-└── INSTALL.md
+├── DEVELOPER_GUIDE.md     # 傻瓜式全流程操作说明书 (建库到上线)
+├── INSTALL.md
+├── STORE_GUIDE.md         # Edge 商店提交指南
+├── DEPLOY.md              # 部署文档
+├── push.ps1               # 一键推 GitHub
+├── release.ps1            # 一键打 Release
+└── BEGINNER.md            # 新手零基础教程
 ```
 
 ## 🧪 测试
@@ -150,10 +156,12 @@ netlify deploy --dir=standalone --prod
 - 最小权限：`bookmarks` + `storage` + `alarms` + `notifications`
 - host_permissions 仅用于用户主动触发时
 
-## 📦 安装
+## 📦 安装与文档
 
 - **新手 (没装过扩展)** → [BEGINNER.md](./BEGINNER.md) (从零开始, 步步详解)
 - **快速参考** → [INSTALL.md](./INSTALL.md) (有经验用户)
+- **想自己做扩展上架** → [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) (傻瓜式全流程:建库到上线到维护)
+- **Edge 商店提交** → [STORE_GUIDE.md](./STORE_GUIDE.md)
 - **功能介绍** → 本 README
 
 两种部署方式: **Edge 扩展** (推荐) 或 **PWA 桌面版**。
