@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Bookmark Matrix — 书签矩阵",
+    "description": "扩展显示名称。"
+  },
+  "extensionDescription": {
+    "message": "把 Edge 收藏夹自动整理成扁平现代化的分类矩阵，离线运行。支持标签/备注/收藏/统计/健康检查/看板，以及全局 Quick Switcher (Ctrl+Shift+B) 秒搜书签。",
+    "description": "扩展描述。"
+  }
+}
